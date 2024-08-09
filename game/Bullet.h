@@ -3,21 +3,24 @@
 #include "raylib.h"
 #include "player.h"
 typedef struct Bullet {
-	int x;
-	int y;
-	int speedX;
-	int speedY;
-	float angle;
-	int sizeX;
-	int sizeY;
+	float x;
+	float y;
+	float speedX;
+	float speedY;
+	float sizeX;
+	float sizeY;
 	Vector2 size;
 	Vector2 origin;
+	Vector2 position;
+	bool active;
 }Bullet;
 
-void SpawnBullet(Bullet* bullet, Player* player, int x, int y, int speedX, int speedY, float angle, int sizeX, int sizeY);
+void InitBullet(Bullet* bullet, Player* player, int x, int y, int speedX, int speedY,  bool active);
 
 // Function to update a Bullet instance
-void UpdateBullet(Bullet* bullet, int mouseX, int mouseY, Player* player);
+void FireBullet(Player* player, Bullet* bullet);
+
+void UpdateBullet(Bullet* bullet, int screenWidth, int screenHeigth);
 
 // Function to draw a Bullet instance
-void DrawBullet(Bullet* bullet);
+//void DrawBullet(Bullet* bullet);

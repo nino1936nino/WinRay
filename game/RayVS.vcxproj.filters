@@ -18,7 +18,7 @@
     <ClCompile Include="Bullet.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RealBullet1.c">
+    <ClCompile Include="shop.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +29,7 @@
     <ClInclude Include="Bullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RealBullet1.h">
+    <ClInclude Include="shop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

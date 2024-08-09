@@ -5,6 +5,7 @@ typedef struct Player {
     int y;
     int speedX;
     int speedY;
+    int LastInput;
 } Player;
 
 void InitPlayer(Player* player, int x, int y, int speedX, int speedY);

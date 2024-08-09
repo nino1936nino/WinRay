@@ -6,62 +6,77 @@
 
 
 
-void SpawnBullet(Bullet* bullet, Player* player, int x, int y, int speedX, int speedY, float angle, int sizeX, int sizeY) {
+void InitBullet(Bullet* bullet, Player* player, float x, float y, float speedX, float speedY, bool active) {
     bullet->x = x;
     bullet->y = y;
     bullet->speedX = speedX;
     bullet->speedY = speedY;
-    bullet->angle = angle;
-    bullet->sizeX = sizeX;
-    bullet->sizeY = sizeY;
-    bullet->size.x = sizeX;
-    bullet->size.y = sizeY;
-    bullet->origin.x = sizeX/2;
-    bullet->origin.y = sizeY/2;
+    bullet->active = active;
+}
+
+void FireBullet(Player* player, Bullet* bullet) {
+        bullet->x = player->x;
+        bullet->y = player->y;
+        bullet->active = true;
+        /*
+        switch (player->LastInput)
+        {
+        case 1: 
+            bullet->speedX = 0;
+            bullet->speedY = -bullet->speedY; 
+            printf("LEFT\n");
+            printf("X: %f  Y: %f, SPEEDX: %f \n", bullet->x, bullet->y, bullet->speedY);
+
+            break;
+        case 2: 
+            bullet->speedX = 0;
+            bullet->speedY = bullet->speedY; 
+            printf("LEFT\n");
+            printf("X: %f  Y: %f, SPEEDX: %f \n", bullet->x, bullet->y, bullet->speedY);
+            break;
+        case 3:
+            bullet->speedX = -bullet->speedX; 
+            bullet->speedY = 0;
+            printf("LEFT\n");
+            printf("X: %f  Y: %f, SPEEDX: %f \n", bullet->x, bullet->y, bullet->speedX);
+            break;
+        case 4: 
+            bullet->speedX = bullet->speedX; 
+            bullet->speedY = 0;
+            printf("LEFT\n");
+            printf("X: %f  Y: %f, SPEEDX: %f \n", bullet->x, bullet->y, bullet->speedX);
+            break;
+        }*/
+}         
+
+
+/*
+void UpdateBullet(Bullet* bullet, Player* player) {
 
 }
-void UpdateBullet(Bullet* bullet, int MouseX, int MouseY, Player* player) {
-    /*bullet->angle = Vector2Normalize(Vector2Subtract(MouseX, player));
-        //atan2(bullet->y -= MouseY, bullet->x -= MouseX);
-    printf("%f\n",bullet->angle);
-    printf("%d\n", bullet->x);
-    printf("%d\n", bullet->y);
-    printf("%d\n", bullet->sizeX);
-    printf("%d\n", bullet->sizeY);
+*/
+void UpdateBullet(Bullet* bullet, int screenWidth, int screenHeigth) {
+    if (bullet->active) {
+        bullet->x += bullet->speedX * GetFrameTime();
+        bullet->y += bullet->speedY * GetFrameTime();
+
+        // Optional: Check if the bullet is out of bounds and deactivate it
+        /*
+        if (bullet->x < 0 || bullet->x > screenWidth ||
+            bullet->y < 0 || bullet->y > screenHeigth) {
+            bullet->active = false; // Deactivate the bullet
+        }
+        */
+    }
+}
 
 
-        Vector2 mousePos = { (float)MouseX, (float)MouseY };
-    Vector2 bulletPos = { (float)bullet->x, (float)bullet->y };
-    bullet->angle = Vector2Subtract(Vector2Normalize(mousePos, bulletPos));
+
+
+
+/*
+void DrawBullet(Bullet* bullet) {
+    DrawCircle(bullet->x, bullet->y, 10, BLUE);
+}
 */
 
-    // = atan2f(direction);
-    float dirX = MouseX - bullet->x;
-    float dirY = MouseY - bullet->y;
-    float length = sqrtf(dirX * dirX + dirY * dirY);
-
-    // Normalize direction
-    if (length != 0) {
-        dirX /= length;
-        dirY /= length;
-    }
-
-    // Update bullet position
-    bullet->x += (int)(bullet->speedX * dirX);
-    bullet->y += (int)(bullet->speedY * dirY);
-
-    // Calculate angle in radians
-    bullet->angle = atan2f(dirY, dirX);
-
-    //printf("Angle: %f\n", bullet->angle);
-    //printf("Position: (%d, %d)\n", bullet->x, bullet->y);
-    //printf("Size: (%d, %d)\n", bullet->sizeX, bullet->sizeY);
-
-
-}
-void DrawBullet(Bullet* bullet) {
-    Rectangle rect = { bullet->x, bullet->y, bullet->size.x, bullet->size.y };
-    Vector2 origin = { bullet->origin.x ,bullet->origin.y };
-    DrawRectanglePro(rect, origin, bullet->angle * (180.0f / PI), RED);  // angle converted to degrees
-    
-}
